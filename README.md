@@ -27,6 +27,7 @@
 2) ## fonction
 
     2.1) math  -> fonctions mathématiques utiles, qui ne sont pas implémentées par défaut.
+    
     2.2) try   -> fonctions de trie (ceci sont des exemples peut etre utile).
 
 3) ## merdique
