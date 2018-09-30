@@ -4,6 +4,12 @@ c'est pour tester pendant que j'apprends différents tutoriels, en général il 
 
 
 tutorial  -> exemples clairs de types de données, de flux et de structures
+    flux  -> exemples de control de flux
+    structur  -> exemples de aliasType et struc
+    typeData  -> exemples de structures de donneés
+        colection -> exemples avec plusieurs types de colection
+            arrays -> exemples de tableaus
+        variables -> exemples avec des variables normaux
 
 foctMath  -> fonctions mathématiques utiles, qui ne sont pas implémentées par défaut
 
