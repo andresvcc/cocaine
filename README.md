@@ -12,9 +12,14 @@
     
     1.3) typeData.
     
-    1.3.1) colection.
-    
-        ..->)  arrays -> exemples de tableaus et traitement de donneés.     
+        1.3.1) colection.
+        *-> exemples de tableaus et traitement de donneés.*
+                ..->)  arrays
+                ..->)  Set
+                ..->)  tuples
+                ..->)  Dictionaire
+                ..->)  enumeration
+        
     1.3.2) variables -> exemples avec des variables normaux.
 
 2) ## fonction
