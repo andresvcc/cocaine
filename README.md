@@ -6,21 +6,23 @@
 
 1) ## tutoriel
 
-    1.1) flux  -> exemples de control de flux.
+    #### 1.1) flux  -> exemples de control de flux.
     
-    1.2) structur  -> exemples de aliasType et struc.
+    #### 1.2) structur  -> exemples de aliasType et struc.
     
-    1.3) typeData.
+    #### 1.3) typeData.
+    colection.
     
-        1.3.1) colection.
-        *-> exemples de tableaus et traitement de donneés.*
+        *-> exemples des structures des donneés et traitement.*
                 ..->)  arrays
                 ..->)  Set
                 ..->)  tuples
                 ..->)  Dictionaire
                 ..->)  enumeration
-        
-    1.3.2) variables -> exemples avec des variables normaux.
+ 
+    variables 
+    
+        *-> exemples avec des variables normaux.*
 
 2) ## fonction
 
@@ -31,4 +33,4 @@
 *-> ceci sont des exemples prise d'un tutorielle, peut etre interesant mais pas evident*.
 
 4) ## rouge
-*-> c'est pour tester. il est possible que ce soit un gâchis sans signification, c'est comme un brouillon inachevé*.
+*-> c'est pour tester. il est possible que ce soit un gâchis sans signification, c'est comme un brouillon inachevé*
