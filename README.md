@@ -11,18 +11,18 @@
     #### 1.2) structur  -> exemples de aliasType et struc.
     
     #### 1.3) typeData.
-    colection.
+    **colection.**
     
-        *-> exemples des structures des donneés et traitement.*
+        -> exemples des structures des donneés et traitement.
                 ..->)  arrays
                 ..->)  Set
                 ..->)  tuples
                 ..->)  Dictionaire
                 ..->)  enumeration
  
-    variables 
+    **variables.**
     
-        *-> exemples avec des variables normaux.*
+        -> exemples avec des variables normaux.
 
 2) ## fonction
 
