@@ -1,3 +1,3 @@
-# typeData
+# variables
 
 A description of this package.

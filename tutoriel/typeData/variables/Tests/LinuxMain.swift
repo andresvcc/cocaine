@@ -1,7 +1,7 @@
 import XCTest
 
-import typeDataTests
+import variablesTests
 
 var tests = [XCTestCaseEntry]()
-tests += typeDataTests.allTests()
+tests += variablesTests.allTests()
 XCTMain(tests)
