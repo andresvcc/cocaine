@@ -31,3 +31,5 @@ print(myDictionary)
 
 //demander une valeur avec la key et si il n'est present envoier une default
 print(myDictionary["jimena", default: "introuvable"])
+
+print(myDictionary["violeta"]!)
