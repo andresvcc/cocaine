@@ -25,12 +25,17 @@ void addHotesse();
 void addPassage();
 void addVol();
 void addAvion();
+void addEquipage();
 ListVol * newlistVol();
 ListAvion * newlistAvion();
 int showAvion();
 int showEquipage();
+void menuNewEquipage();
+void menuNewAvion();
 Avion * findAvion();
 Equipage * findEquipage();
+Employe * findEmploye();
+void showEmployebyCompetence();
 
 //struct
 
