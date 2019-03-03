@@ -8,14 +8,20 @@ void help(){
   printf("-------------------------------------------------------------\n");
   printf("Voici une liste de commandes de tout ce que vous pouvez faire\n");
   printf("-------------------------------------------------------------\n");
-  printf("new vol              creer un nouveau vol\n");
-  printf("show all vol         montrer tout la liste des vols\n");
-  printf("show active vol      montrer les vols en route\n");
-  printf("show scheduled vol   montrer les vol qui sont planifie\n");
-  printf("show finished vol    montrer les vols qui ont ete deja efectues\n");
-  printf("find vol             chercher un vol\n");
-  printf("find employe         chercher un employe\n");
-  printf("find client          chercher un client/passage\n");
+  printf("help                 voir toutes les comandes disponibles\n");
+  printf("new-vol              creer un nouveau vol\n");
+  printf("new-avion            enrregistrer un nouveau avion\n");
+  printf("new-equipage         enrregistrer un nouveau equipage\n");
+  printf("new-employe          enrregistrer un nouveau employe\n");
+  printf("show-employe         montrer toutes les employes\n");
+  printf("show-avion           montrer toutes les avion\n");
+  printf("show-pilot           montrer toutes les pilot\n");
+  printf("show-chef-hotesse    montrer toutes les chef de hotesse\n");
+  printf("show-hotesse         montrer toutes les hotesse\n");
+  printf("show-vol             montrer les vol qui sont planifie\n");
+  printf("show-active-vol      montrer les vols en route\n");
+  printf("show-finished-vol    montrer les vols qui ont ete deja efectues\n");
+  printf("find-employe         chercher un employe\n");
   printf("exit                 sortir du program\n");
   printf("-------------------------------------------------------------\n");
 }
@@ -41,18 +47,23 @@ void menuNewVol(ListVol * listVol, ListAvion * listAvion, ListEquipage * listEqu
   printf("\n liste des avion \n");
   int okAvion = showAvion(listAvion);
   if(okAvion >= 0){
-    printf("\nid Avion: ");
+    printf("\nrentrez la id de l'avion: ");
     scanf("%d",&idAvion);
     Avion * xavion = findAvion(idAvion,listAvion);
     if(xavion != NULL){
       int okEquipage = showEquipage(listEquipage);
       if(okEquipage >= 0){
-        printf("\nid Equipage: ");
+        printf("\nrentrez la id de l'equipage: ");
         scanf("%d",&idEquipage);
-        Equipage * xequipage = findEquipage(listEquipage);
+        Equipage * xequipage = findEquipage(idEquipage, listEquipage);
         if(xequipage != NULL){
           Vol * xvol = newVol(1, xheureDep, xheureDes, xaeroDep, xaeroDes, xavion, xequipage);
           addVol(xvol,listVol);
+          if(xvol == NULL){
+            printf("un probleme est sourvenue le vol n'est pas enrregistre\n");
+          }else{
+            printf("creation du vol %d reussi, %s, %d H -> %s, %d H:\n", xvol->id, xvol->aeroportDepart,xvol->heureDepart,xvol->aeroportDestination,xvol->heureDarrivage);
+          }
         }else{
           printf("imposible id d'equipage inconue\n");
         }
@@ -92,6 +103,32 @@ void menuNewAvion(ListAvion * listAvion){
   showAvion(listAvion);
 }
 
+void menuNewEmploye(ListEmploye * listEmploye){
+  int xid;
+  char xnom[charSize];
+  char xprenom[charSize];
+  int xcompetence;
+  int xdate;
+  printf("--------------------------------------\n");
+  printf("pour ajouter un nouveau Employe, entrez \n");
+  printf("--------------------------------------\n");
+  printf("id: ");
+  scanf("%d",&xid);
+  printf("nom: ");
+  scanf("%s",xnom);
+  printf("prenom: ");
+  scanf("%s",xprenom);
+  printf("anne de naissance: ");
+  scanf("%d",&xdate);
+  printf("pilot:1, chefHotesse:2, hotesse:3\n");
+  printf("competence: ");
+  scanf("%d",&xcompetence);
+  Employe * nodeEmploye = newEmploye(xid,xnom,xprenom,xdate,xcompetence);
+  addEmploye(nodeEmploye, listEmploye);
+  printf("--------------------------------------\n");
+  showEmploye(listEmploye);
+}
+
 void menuNewEquipage(ListEquipage * listEquipage, ListEmploye * listEmploye){
   int xid;
   char xmodele[charSize];
@@ -104,9 +141,6 @@ void menuNewEquipage(ListEquipage * listEquipage, ListEmploye * listEmploye){
   int idCopilot;
   int idChef;
   int sizeHotesse;
-  Employe * xpilot;
-  Employe * xcopilot;
-  Employe * xchefHotesse;
   printf("liste des pilot\n");
   showEmployebyCompetence(1,listEmploye);
   printf("\n: choisissez un pilot dans la liste de pilot");
@@ -115,24 +149,57 @@ void menuNewEquipage(ListEquipage * listEquipage, ListEmploye * listEmploye){
   printf("\n: choisissez un copilot dans la liste de pilot");
   printf("id: ");
   scanf("%d",&idCopilot);
+  printf("liste des chef d'hotesse\n");
   showEmployebyCompetence(2,listEmploye);
+  printf("\n choisissez un chef d'hotesse dans la liste");
+  printf("id: ");
+  scanf("%d",&idChef);
 
+  printf("\nrentrez un id pour identifier cette equipage");
+  printf("\nid: ");
+  scanf("%d",&xid);
+
+  Employe * xpilot = findEmploye(idPilot,listEmploye);
+  Employe * xcopilot = findEmploye(idCopilot,listEmploye);
+  Employe * xchefHotesse = findEmploye(idChef,listEmploye);
   Equipage * nodeEquipage = newEquipage(xid,xpilot,xcopilot,xchefHotesse);
 
-  printf("combien d'hotesses voulez vous ajouter? : ");
-  scanf("%d \n",&sizeHotesse);
+  printf("combien d'hotesses voulez vous ajouter? :");
+  scanf("%d",&sizeHotesse);
+  printf("\nliste des hotesses\n");
   showEmployebyCompetence(3,listEmploye);
-
+  printf("Choissize\n");
   int idHotesse;
   for (int i = 0; i < sizeHotesse; i++) {
-    printf("\nhotesse n°%d : ", i );
+    int temp = i+1;
+    printf("id hotesse n° %d : ", temp );
     scanf("%d",&idHotesse);
+    printf("\n");
     Employe * hotesse = findEmploye(idHotesse,listEmploye);
     addHotesse(nodeEquipage, hotesse);
   }
 
   addEquipage(nodeEquipage, listEquipage);
   printf("--------------------------------------\n");
+}
+
+void menuFindEmploye(ListEmploye * listEmploye){
+  int id;
+  printf("--------------------------------\n");
+  printf("recherche d'employe par id\n");
+  printf("--------------------------------\n");
+  printf("rentrez le id\n");
+  scanf("%d\n",&id);
+  Employe * employe = findEmploye(id,listEmploye);
+  printf("nom: %s\n",employe->nom);
+  printf("prenom: %s\n",employe->prenom);
+  printf("anne de naissance: %d\n",employe->dateNaissance);
+  printf("competence: ");
+  switch (employe->competence) {
+    case 1:printf("pilot\n");break;
+    case 2:printf("chef d'hotesse\n");break;
+    case 3:printf("hotesse\n");break;
+  }
 }
 
 Employe * findEmploye(int id, ListEmploye * listEmploye){
@@ -175,7 +242,7 @@ Equipage * findEquipage(int id, ListEquipage * listEquipage){
   ListEquipage * current = NULL;
 
   if(listEquipage->data == NULL){
-    printf("liste des Avion vide !!\n");
+    printf("liste des equipage vide !!\n");
     return NULL;
   }else {
     current = listEquipage;
@@ -191,14 +258,16 @@ Equipage * findEquipage(int id, ListEquipage * listEquipage){
 
 int showEquipage(ListEquipage * listEquipage){
   ListEquipage * current = NULL;
-
+  printf("---------------------------------\n");
+  printf("liste des equipages\n");
+  printf("---------------------------------\n");
   if(listEquipage->data == NULL){
     printf("liste des Equipage vide !!\n");
     return -1;
   }else {
     current = listEquipage;
     while (current->data!=NULL){
-      //printf("id: %d modele: %s N°chaisse: %d \n", current->data->id, current->data->modele, current->data->nombreChaises);
+      printf("id: %d | pilot: %s | copilot: %s | chef d'hotesse: %s \n", current->data->id, current->data->pilot->prenom, current->data->copilot->prenom, current->data->chefHotesse->prenom);
       current = current->next;
     }
     return 0;
@@ -210,36 +279,42 @@ void showEmployebyCompetence(int competence, ListEmploye * listEmploye){
   current = listEmploye;
   while (current->data!=NULL){
     if(competence == current->data->competence){
-      printf("id: %d | nom: %s %s \n",current->data->id,current->data->nom, current->data->prenom);
+      printf("id: %d | %s %s \n",current->data->id,current->data->nom, current->data->prenom);
     }
     current = current->next;
   }
+  printf("---------------------------------\n");
 }
 
-int showEmploye(int competence, ListEmploye * listEmploye){
+int showEmploye(ListEmploye * listEmploye){
   ListEmploye * current = NULL;
-
+  printf("---------------------------------\n");
+  printf("liste des employes\n");
+  printf("---------------------------------\n");
   if(listEmploye->data == NULL){
     printf("liste des Equipage vide !!\n");
     return -1;
   }else {
     current = listEmploye;
     while (current->data!=NULL){
-      printf("id: %d | nom: %s %s | ",current->data->id,current->data->nom, current->data->prenom);
+      printf("id: %d | %s %s ->",current->data->id,current->data->nom, current->data->prenom);
       switch (current->data->competence) {
-        case 1:printf("pilot\n");
-        case 2:printf("chef d'hotesse\n");
-        case 3:printf("hotesse\n");
+        case 1:printf("pilot/copilot\n");break;
+        case 2:printf("chef d'hotesse\n");break;
+        case 3:printf("hotesse\n");break;
       }
       current = current->next;
     }
+    printf("---------------------------------\n");
     return 0;
   }
 }
 
 int showAvion(ListAvion * listAvion){
   ListAvion * current = NULL;
-
+  printf("---------------------------------\n");
+  printf("liste des Avion\n");
+  printf("---------------------------------\n");
   if(listAvion->data == NULL){
     printf("liste des Avion vide !!\n");
     return -1;
@@ -250,6 +325,29 @@ int showAvion(ListAvion * listAvion){
       current = current->next;
     }
     printf("-----------\n");
+    return 0;
+  }
+}
+
+int showVol(ListVol * listVol){
+  ListVol * current = NULL;
+  printf("---------------------------------\n");
+  printf("liste des vols\n");
+  printf("---------------------------------\n");
+  if(listVol->data == NULL){
+    printf("liste des Vol vide !!\n");
+    return -1;
+  }else {
+    current = listVol;
+    while (current->data!=NULL){
+      printf("----------------------------------------------\n");
+      printf("id%d  | Heure depart: %d | Heure arrivage: %d \n",current->data->id,current->data->heureDepart,current->data->heureDarrivage );
+      printf("      | depart de: %s    | arrivage a : %s \n", current->data->aeroportDepart, current->data->aeroportDestination);
+      printf("      | avion id: %d  modele %s\n", current->data->avion->id,current->data->avion->modele);
+      printf("      | equipage id: %d pilot: %s %s copilot: %s %s chef d'hotesse: %s %s\n",current->data->equipage->id,current->data->equipage->pilot->nom,current->data->equipage->pilot->prenom,current->data->equipage->copilot->nom,current->data->equipage->copilot->prenom,current->data->equipage->chefHotesse->nom,current->data->equipage->chefHotesse->prenom);
+      printf("----------------------------------------------\n");
+      current = current->next;
+    }
     return 0;
   }
 }
@@ -433,6 +531,22 @@ if(listEquipage->data == NULL){
   }
 }
 
+void addEmploye(Employe * employe, ListEmploye * listEmploye){
+  ListEmploye * current = NULL;
+
+if(listEmploye->data == NULL){
+    listEmploye->data = employe;
+    listEmploye->next = malloc(sizeof(ListEmploye));
+  }else {
+    current = listEmploye->next;
+    while (current->data!=NULL){
+      current = current->next;
+    }
+    current->data = employe;
+    current->next = malloc(sizeof(ListEmploye));
+  }
+}
+
 void addAvion(Avion * avion, ListAvion * listAvion){
   ListAvion * current = NULL;
 
@@ -456,7 +570,7 @@ if(listVol->data == NULL){
     listVol->data = vol;
     listVol->next = malloc(sizeof(ListVol));
   }else {
-    current = listVol->next;
+    current = listVol;
     while (current->data!=NULL){
       current = current->next;
     }
