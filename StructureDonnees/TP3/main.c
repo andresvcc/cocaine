@@ -10,21 +10,15 @@
 
 int main()
 {
-  //List * passagers = newList();
+  List * passagers = newList();
 
-  //lireFichie(passagers);
-  //listShow(passagers);
+  lireFichie(passagers);
+  listShow(passagers);
 
   ARBRE * arbreP = newArbre();
 
-  //saveInArbre(arbreP);
+  saveInArbre(arbreP);
   //showArbre(arbreP);
-  addNodeArbre(1,"a","a",1,1,arbreP);
-  addNodeArbre(1,"b","b",1,1,arbreP);
-  addNodeArbre(1,"c","c",1,1,arbreP);
-
-
-  showArbre(arbreP);
 
 
 
